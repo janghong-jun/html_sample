@@ -35,8 +35,8 @@
   --shadow-xl: 0 2rem 2.5rem -0.5rem rgba(0, 0, 0, 0.1),
     0 1rem 1rem -0.5rem rgba(0, 0, 0, 0.04);
 
-  --font-heading: 'Pretendard GOV', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-heading: "Pretendard GOV", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --text-xs: 1.2rem;
   --text-sm: 1.4rem;
   --text-base: 1.6rem;
@@ -58,27 +58,6 @@
   --letter-spacing-tight: -0.025em;
   --letter-spacing-normal: 0;
   --letter-spacing-wide: 0.025em;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0f172a;
-    --color-surface: #1e293b;
-    --color-foreground: #f8fafc;
-    --color-muted: #cbd5e1;
-    --color-border: #334155;
-    --color-primary: #60a5fa;
-    --color-primary-hover: #3b82f6;
-    --color-success: #34d399;
-    --color-warning: #fbbf24;
-    --color-danger: #f87171;
-    --color-info: #22d3ee;
-
-    /* 다크 모드용 접근성 색상 */
-    --color-text-secondary: #94a3b8;
-    --color-text-tertiary: #64748b;
-    --color-bg-hover: #334155;
-  }
 }
 
 html {
@@ -173,7 +152,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type='number'] {
+input[type="number"] {
   -moz-appearance: textfield;
   appearance: none;
 }

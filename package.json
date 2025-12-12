@@ -4,16 +4,13 @@
   "description": "정적 웹사이트 빌드 환경",
   "type": "module",
   "scripts": {
-    "dev": "npm run lint & cross-env MODE=dev node serve-and-build.js",
-    "build": "cross-env MODE=prod node serve-and-build.js",
-    "lint": "eslint . --ext .js,.html --fix"
+    "dev": "cross-env MODE=dev node serve-and-build.js",
+    "build": "cross-env MODE=prod node serve-and-build.js"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@html-eslint/eslint-plugin": "^0.50.0",
     "cross-env": "^10.1.0",
-    "eslint": "^9.39.1",
     "glob": "^10.3.10",
     "sass": "^1.70.0"
   },
