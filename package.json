@@ -1,0 +1,21 @@
+{
+  "name": "static-website",
+  "version": "1.0.0",
+  "description": "정적 웹사이트 빌드 환경",
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env MODE=dev node serve-and-build.js",
+    "build": "cross-env MODE=prod node serve-and-build.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "glob": "^10.3.10",
+    "sass": "^1.70.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6"
+  }
+}

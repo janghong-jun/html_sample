@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko" class="no-js">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Cache-Control" content="no-cache; no-store; no-save" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <title></title>
+    <link rel="stylesheet" href="./resources/css/worklist.min.css" />
+    <script
+      type="text/javascript"
+      src="./resources/js/worklist.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="./resources/js/worklist.include.js"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $(".tobe_section").find(".btn_app").eq(0).addClass("active");
+      });
+    </script>
+  </head>
+  <body data-page="app">
+    <div id="wrap">
+      <h1>하이코칭</h1>
+      <!-- header -->
+      <div class="header">
+        <div class="tab_nav">
+          <h2>IA</h2>
+          <ul>
+            <li>
+              <a href="javascript:void(0);"><span>스플래시</span></a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"><span>로그인</span></a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"><span>메인</span></a>
+            </li>
+            <li>
+              <a href="javascript:void(0);"><span>View All</span></a>
+            </li>
+          </ul>
+        </div>
+        <div class="info_section">
+          <div class="box info_box">
+            <h2>Info</h2>
+            <div class="box_wrap">
+              <table>
+                <caption>
+                  Encoding, Cross Browsing, Log Infomation
+                </caption>
+                <colgroup>
+                  <col style="width: 100px" />
+                  <col style="width: 100px" />
+                  <col style="width: 100px" />
+                  <col style="width: 100px" />
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th scope="row">Basic</th>
+                    <td colspan="3">
+                      <div data-ui="more" data-title="Basic">
+                        <dl>
+                          <dt>Device</dt>
+                          <dd>~360 MO, 361~768 TAB, 769~ PC</dd>
+                        </dl>
+                        <dl>
+                          <dt>Encoding</dt>
+                          <dd>UTF-8</dd>
+                        </dl>
+                        <dl>
+                          <dt>DTD</dt>
+                          <dd>HTML5</dd>
+                        </dl>
+                        <dl>
+                          <dt>Lang</dt>
+                          <dd>ko</dd>
+                        </dl>
+                        <dl>
+                          <dt>Etc</dt>
+                          <dd>Css3, Scss</dd>
+                        </dl>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">IA</th>
+                    <td colspan="3">
+                      <div data-ui="more" data-title="IA">
+                        <dl>
+                          <dt>09/19</dt>
+                          <dd>300.BCL_DEG303_화면목록_v0.2_20230918.xlsx</dd>
+                        </dl>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Log</th>
+                    <td colspan="3">
+                      <div data-ui="more" data-title="Log">
+                        <dl>
+                          <dt></dt>
+                          <dd></dd>
+                        </dl>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="box link_box">
+            <h2>Link</h2>
+            <div class="box_wrap">
+              <script>
+                incLinkInfo();
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- //header -->
+
+      <!-- content -->
+      <div id="content">
+        <!----------------------------------------------------
+				* Start of Content
+				---------------------------------------------------->
+
+        <!----------------------------------------------------
+				// [스플래시]
+				---------------------------------------------------->
+        <div class="tab_contents_wrap">
+          <h3></h3>
+          <table>
+            <script>
+              incThead();
+            </script>
+            <tbody>
+              <tr>
+                <td class="depth2">스플래시</td>
+                <td class="depth3"></td>
+                <td class="depth4"></td>
+                <td class="depth5"></td>
+                <td class="type">M</td>
+                <td class="path">
+                  <a href="../APP/APP0101000000M.html" target="_blank"
+                    >APP0101000000M</a
+                  >
+                </td>
+                <td class="page">스플래시</td>
+                <td class="corder">장홍준</td>
+                <td class="ddate">12/25</td>
+                <td class="rdate">12/25</td>
+                <td class="pdate"></td>
+                <td class="mdate"></td>
+                <td class="tag"></td>
+                <td class="log">
+                  <dl>
+                    <dt></dt>
+                    <dd></dd>
+                  </dl>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!----------------------------------------------------
+				* End of Content a
+				---------------------------------------------------->
+      </div>
+      <!-- //content -->
+    </div>
+    <!-- //wrap -->
+    <!-- [s] 개발시 삭제 -->
+    <script>
+      (function connect() {
+        const origin = location.origin; // http://localhost:3000
+        const evt = new EventSource(origin + "/__reload");
+
+        evt.onmessage = (e) => {
+          if (e.data === "reload") {
+            location.reload();
+          }
+        };
+
+        evt.onerror = () => {
+          evt.close();
+          // setTimeout(connect, 1000);
+        };
+      })();
+    </script>
+    <!--// [e] 개발시 삭제 -->
+  </body>
+</html>

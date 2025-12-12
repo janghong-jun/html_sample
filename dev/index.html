@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="정적 웹사이트" />
+    <link rel="stylesheet" href="./resources/css/style.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <h1><a href="/pages/index.html">My Website</a></h1>
+      </div>
+    </header>
+
+    <main class="container">
+      <h2>Welcome</h2>
+      <p>정적 웹사이트 빌드 환경입니다</p>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2024 My Website</p>
+      </div>
+    </footer>
+
+    <script src="./resources/js/UI_common.js"></script>
+    <!-- [s] 개발시 삭제 -->
+<script>
+  (function connect() {
+    const origin = location.origin; // http://localhost:3000
+    const evt = new EventSource(origin + "/__reload");
+
+    evt.onmessage = (e) => {
+      if (e.data === "reload") {
+        location.reload();
+      }
+    };
+
+    evt.onerror = () => {
+      evt.close();
+      setTimeout(connect, 1000);
+    };
+  })();
+</script>
+<!--// [e] 개발시 삭제 -->
+
+  </body>
+</html>
