@@ -167,79 +167,6 @@ const UICommon = (() => {
     },
   };
 
-  // ===== Checkbox 컴포넌트 =====
-  const Checkbox = {
-    init() {
-      $$('.krds-form-check-input[type="checkbox"]').forEach((checkbox) => {
-        this.setupCheckbox(checkbox);
-      });
-    },
-
-    setupCheckbox(checkbox) {
-      checkbox.addEventListener("change", (e) => {
-        const customEvent = new CustomEvent("checkboxChange", {
-          detail: { checked: e.target.checked, value: e.target.value },
-        });
-        checkbox.dispatchEvent(customEvent);
-      });
-    },
-  };
-
-  // ===== Radio Group 컴포넌트 =====
-  const RadioGroup = {
-    init() {
-      $$('.krds-form-check-input[type="radio"]').forEach((radio) => {
-        this.setupRadio(radio);
-      });
-    },
-
-    setupRadio(radio) {
-      radio.addEventListener("change", (e) => {
-        const group = radio.name;
-        $$(`input[name="${group}"]`).forEach((r) => {
-          r.closest(".krds-form-check").classList.remove("selected");
-        });
-        radio.closest(".krds-form-check").classList.add("selected");
-      });
-
-      // 키보드 네비게이션
-      radio.addEventListener("keydown", (e) => {
-        if (
-          !["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(e.key)
-        )
-          return;
-
-        e.preventDefault();
-        const group = radio.name;
-        const radios = $$(`input[name="${group}"]:not(:disabled)`);
-        const index = Array.from(radios).indexOf(radio);
-        const dir = ["ArrowRight", "ArrowDown"].includes(e.key) ? 1 : -1;
-        const nextIndex = (index + dir + radios.length) % radios.length;
-
-        radios[nextIndex].focus();
-        radios[nextIndex].click();
-      });
-    },
-  };
-
-  // ===== Switch 컴포넌트 =====
-  const Switch = {
-    init() {
-      $$(".switch-input").forEach((switchEl) => {
-        this.setupSwitch(switchEl);
-      });
-    },
-
-    setupSwitch(switchEl) {
-      switchEl.addEventListener("change", (e) => {
-        const customEvent = new CustomEvent("switchChange", {
-          detail: { checked: e.target.checked },
-        });
-        switchEl.dispatchEvent(customEvent);
-      });
-    },
-  };
-
   // ===== Modal 컴포넌트 =====
   const Modal = {
     openModals: new Set(),
@@ -254,6 +181,7 @@ const UICommon = (() => {
       this.openModals.add(modalId);
       modalStack.push(modalId);
       focusManager.push();
+      document.activeElement.blur(); // 현재 포커스 해제
 
       modal.style.display = "flex";
       modal.style.zIndex = 9999 + this.openModals.size;
@@ -339,6 +267,7 @@ const UICommon = (() => {
       this.openAlerts.add(alertId);
       modalStack.push(alertId);
       focusManager.push();
+      document.activeElement.blur(); // 현재 포커스 해제
 
       alert.style.display = "flex";
       alert.style.zIndex = 9999 + this.openAlerts.size;
@@ -607,35 +536,6 @@ const UICommon = (() => {
     },
   };
 
-  // ===== Pagination 컴포넌트 =====
-  const Pagination = {
-    init() {
-      $$(".page-link, .page-navi").forEach((btn) => {
-        this.setupButton(btn);
-      });
-    },
-
-    setupButton(btn) {
-      btn.addEventListener("click", () => {
-        const pagination = btn.closest(".krds-pagination");
-        if (!pagination) return;
-
-        if (btn.classList.contains("page-link")) {
-          pagination
-            .querySelectorAll(".page-link")
-            .forEach((link) => link.classList.remove("active"));
-          btn.classList.add("active");
-
-          pagination.dispatchEvent(
-            new CustomEvent("pageChange", {
-              detail: { page: parseInt(btn.textContent) },
-            })
-          );
-        }
-      });
-    },
-  };
-
   // ===== Tooltip 컴포넌트 =====
   const Tooltip = {
     init() {
@@ -668,167 +568,248 @@ const UICommon = (() => {
     },
   };
 
-  // ===== Breadcrumb 컴포넌트 =====
-  const Breadcrumb = {
-    init() {
-      // Breadcrumb은 정적이므로 별도 초기화 불필요
-    },
-  };
-
-  // ===== Button 컴포넌트 =====
-  const Button = {
-    init() {
-      $(".krds-btn").forEach((btn) => {
-        btn.addEventListener("click", function (e) {
-          // 버튼 클릭 효과
-          if (!btn.disabled) {
-            this.style.transform = "scale(0.98)";
-            setTimeout(() => {
-              this.style.transform = "";
-            }, 100);
-          }
-        });
-      });
-    },
-  };
-
   // ===== Navigation (GNB) 컴포넌트 =====
   const Navigation = {
     isMobile: false,
+    mobileMenuBtn: null,
+    menuContainer: null,
+    menuToggles: [],
+    gnbActions: null,
 
     init() {
-      const mobileMenuBtn = $("#mobile-menu-toggle");
-      const menuContainer = $("#menu-container");
-      const menuToggles = $(".menu-toggle");
+      // DOM 요소 선택 (한 번만)
+      this.mobileMenuBtn = $("#mobile-menu-toggle");
+      this.menuContainer = $("#menu-container");
+      this.menuToggles = $$(".menu-toggle");
+      this.gnbActions = $(".gnb-actions");
 
-      if (!mobileMenuBtn || !menuContainer) return;
+      if (!this.mobileMenuBtn || !this.menuContainer) {
+        console.error("Navigation: Required elements not found");
+        return;
+      }
 
-      // 반응형 감지
+      console.log("✓ Navigation initialized");
+      console.log("  - Mobile btn:", this.mobileMenuBtn);
+      console.log("  - Menu container:", this.menuContainer);
+      console.log("  - Menu toggles count:", this.menuToggles.length);
+      console.log("  - mobileMenuBtn exist:", !!this.mobileMenuBtn);
+      console.log("  - menuContainer exist:", !!this.menuContainer);
+      console.log("  - menuToggles count:", this.menuToggles.length);
+
+      // 초기 반응형 상태 설정
       this.updateMobileState();
 
-      // 모바일 메뉴 버튼 클릭
-      mobileMenuBtn.addEventListener("click", () => {
-        const isOpen = mobileMenuBtn.getAttribute("aria-expanded") === "true";
-
-        mobileMenuBtn.classList.toggle("active");
-        mobileMenuBtn.setAttribute("aria-expanded", !isOpen);
-        menuContainer.classList.toggle("active");
-
-        // 메뉴 열릴 때 첫 번째 링크에 포커스
-        if (!isOpen) {
-          const firstLink = menuContainer.querySelector("a, button");
-          if (firstLink) firstLink.focus();
+      // 초기 서브메뉴 ARIA 속성 설정
+      this.menuToggles.forEach((toggle) => {
+        const submenu = document.getElementById(
+          toggle.getAttribute("data-submenu")
+        );
+        if (submenu) {
+          toggle.setAttribute(
+            "aria-expanded",
+            submenu.hidden ? "false" : "true"
+          );
         }
       });
 
-      // 서브메뉴 토글 (모바일)
-      menuToggles.forEach((toggle) => {
-        toggle.addEventListener("click", () => {
-          if (!this.isMobile) return;
+      // ===== 모바일 메뉴 버튼 클릭 =====
+      this.mobileMenuBtn.addEventListener("click", (e) => {
+        console.log("Mobile menu button clicked!");
+        e.preventDefault();
+        e.stopPropagation();
+        this.toggleMenu();
+      });
 
-          const submenu = document.getElementById(toggle.dataset.submenu);
-          const isOpen = toggle.getAttribute("aria-expanded") === "true";
-
-          toggle.setAttribute("aria-expanded", !isOpen);
-          submenu.hidden = isOpen;
-          submenu.setAttribute("aria-expanded", !isOpen);
+      // ===== 서브메뉴 토글 =====
+      this.menuToggles.forEach((toggle) => {
+        toggle.addEventListener("click", (e) => {
+          console.log("Submenu toggle clicked:", toggle.id || toggle.className);
+          e.preventDefault();
+          e.stopPropagation();
+          this.toggleSubmenu(toggle);
         });
       });
 
-      // 메뉴 항목 클릭 시 모바일 메뉴 닫기
-      const menuLinks = menuContainer.querySelectorAll("a");
+      // ===== 메뉴 링크 클릭 시 모바일 메뉴 닫기 =====
+      const menuLinks = this.menuContainer.querySelectorAll(".menu-link");
       menuLinks.forEach((link) => {
         link.addEventListener("click", () => {
           if (this.isMobile) {
-            mobileMenuBtn.classList.remove("active");
-            mobileMenuBtn.setAttribute("aria-expanded", "false");
-            menuContainer.classList.remove("active");
+            this.closeMenu();
           }
         });
       });
 
-      // ESC 키로 메뉴 닫기
+      // ===== 서브메뉴 링크 클릭 시 모바일 메뉴 닫기 =====
+      const subMenuLinks =
+        this.menuContainer.querySelectorAll(".sub-menu-link");
+      subMenuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          if (this.isMobile) {
+            this.closeMenu();
+          }
+        });
+      });
+
+      // ===== ESC 키로 메뉴 닫기 =====
       document.addEventListener("keydown", (e) => {
-        if (
-          e.key === "Escape" &&
-          this.isMobile &&
-          menuContainer.classList.contains("active")
-        ) {
-          mobileMenuBtn.classList.remove("active");
-          mobileMenuBtn.setAttribute("aria-expanded", "false");
-          menuContainer.classList.remove("active");
-          mobileMenuBtn.focus();
+        if (e.key === "Escape") {
+          this.closeMenu();
         }
       });
 
-      // 외부 클릭 시 메뉴 닫기
+      // ===== 외부 클릭 시 메뉴 닫기 =====
       document.addEventListener("click", (e) => {
+        const gnb = $(".gnb");
         if (
-          this.isMobile &&
-          !menuContainer.contains(e.target) &&
-          !mobileMenuBtn.contains(e.target) &&
-          menuContainer.classList.contains("active")
+          gnb &&
+          !gnb.contains(e.target) &&
+          this.menuContainer.classList.contains("active")
         ) {
-          mobileMenuBtn.classList.remove("active");
-          mobileMenuBtn.setAttribute("aria-expanded", "false");
-          menuContainer.classList.remove("active");
+          this.closeMenu();
         }
       });
 
-      // 윈도우 리사이즈 감지
-      window.addEventListener("resize", () => this.updateMobileState());
+      // ===== 윈도우 리사이즈 감지 =====
+      let resizeTimer;
+      window.addEventListener("resize", () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          this.updateMobileState();
+        }, 150);
+      });
+    },
+
+    toggleMenu() {
+      const isOpen =
+        this.mobileMenuBtn.getAttribute("aria-expanded") === "true";
+
+      this.mobileMenuBtn.classList.toggle("active");
+      this.mobileMenuBtn.setAttribute("aria-expanded", !isOpen);
+      this.mobileMenuBtn.setAttribute(
+        "aria-label",
+        !isOpen ? "메뉴 닫기" : "메뉴 열기"
+      );
+      this.menuContainer.classList.toggle("active");
+
+      // gnb-actions hide 토글
+      if (this.gnbActions) {
+        this.gnbActions.classList.toggle("hide");
+      }
+
+      console.log("Menu toggled:", !isOpen);
+      console.log(
+        "  - mobileMenuBtn active class:",
+        this.mobileMenuBtn.classList.contains("active")
+      );
+      console.log(
+        "  - menuContainer active class:",
+        this.menuContainer.classList.contains("active")
+      );
+      if (this.gnbActions) {
+        console.log(
+          "  - gnbActions hide class:",
+          this.gnbActions.classList.contains("hide")
+        );
+      }
+
+      // 메뉴 열릴 때 첫 번째 링크에 포커스
+      if (!isOpen) {
+        const firstLink = this.menuContainer.querySelector("a");
+        if (firstLink) firstLink.focus();
+      }
+    },
+
+    toggleSubmenu(toggle) {
+      const submenuId = toggle.getAttribute("data-submenu");
+      const submenu = document.getElementById(submenuId);
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+
+      if (!submenu) {
+        console.error("Submenu not found:", submenuId);
+        return;
+      }
+
+      // 모바일에서만 다른 서브메뉴 닫기
+      if (this.isMobile) {
+        this.menuToggles.forEach((other) => {
+          if (other !== toggle) {
+            other.setAttribute("aria-expanded", "false");
+            const otherSubmenu = document.getElementById(
+              other.getAttribute("data-submenu")
+            );
+            if (otherSubmenu) {
+              otherSubmenu.hidden = true;
+            }
+          }
+        });
+      }
+
+      // 현재 서브메뉴 토글
+      toggle.setAttribute("aria-expanded", !isOpen);
+      submenu.hidden = !isOpen;
+
+      console.log("Submenu toggled:", submenuId, "State:", !isOpen);
+      console.log("  - Submenu hidden state:", submenu.hidden);
+      console.log(
+        "  - Toggle aria-expanded:",
+        toggle.getAttribute("aria-expanded")
+      );
+    },
+
+    closeMenu() {
+      this.mobileMenuBtn.classList.remove("active");
+      this.mobileMenuBtn.setAttribute("aria-expanded", "false");
+      this.mobileMenuBtn.setAttribute("aria-label", "메뉴 열기");
+      this.menuContainer.classList.remove("active");
+
+      // gnb-actions hide 제거
+      if (this.gnbActions) {
+        this.gnbActions.classList.remove("hide");
+      }
+
+      // 모든 서브메뉴 닫기
+      this.menuToggles.forEach((toggle) => {
+        toggle.setAttribute("aria-expanded", "false");
+        const submenu = document.getElementById(
+          toggle.getAttribute("data-submenu")
+        );
+        if (submenu) {
+          submenu.hidden = true;
+        }
+      });
+
+      console.log("Menu closed");
     },
 
     updateMobileState() {
       const wasMobile = this.isMobile;
-      this.isMobile = window.innerWidth <= 768;
+      this.isMobile = window.innerWidth <= 767;
 
-      // 데스크톱으로 돌아갔을 때 모바일 메뉴 초기화
-      if (wasMobile && !this.isMobile) {
-        const mobileMenuBtn = $("#mobile-menu-toggle");
-        const menuContainer = $("#menu-container");
-        const menuToggles = $(".menu-toggle");
+      // 상태가 바뀔 때만 처리
+      if (wasMobile !== this.isMobile) {
+        console.log("Mobile state changed:", this.isMobile);
 
-        if (mobileMenuBtn) {
-          mobileMenuBtn.classList.remove("active");
-          mobileMenuBtn.setAttribute("aria-expanded", "false");
-        }
+        if (!this.isMobile) {
+          // 데스크톱으로 변경 시
+          this.closeMenu();
 
-        if (menuContainer) {
-          menuContainer.classList.remove("active");
-        }
-
-        // 모든 서브메뉴 닫기
-        menuToggles.forEach((toggle) => {
-          toggle.setAttribute("aria-expanded", "false");
-          const submenu = document.getElementById(toggle.dataset.submenu);
-          if (submenu) {
-            submenu.hidden = true;
-            submenu.removeAttribute("aria-expanded");
+          // gnb-actions hide 제거
+          if (this.gnbActions) {
+            this.gnbActions.classList.remove("hide");
           }
-        });
+
+          // 데스크톱에서 서브메뉴 표시 상태로 변경
+          this.menuToggles.forEach((toggle) => {
+            const submenu = document.getElementById(
+              toggle.getAttribute("data-submenu")
+            );
+            if (submenu) {
+              submenu.hidden = false;
+            }
+          });
+        }
       }
-    },
-  };
-
-  // ===== Divider 컴포넌트 =====
-  const Divider = {
-    init() {
-      // Divider는 정적이므로 별도 초기화 불필요
-    },
-  };
-
-  // ===== Grid 컴포넌트 =====
-  const Grid = {
-    init() {
-      // Grid는 CSS 기반이므로 별도 초기화 불필요
-    },
-  };
-
-  // ===== Card 컴포넌트 =====
-  const Card = {
-    init() {
-      // Card는 정적이므로 별도 초기화 불필요
     },
   };
 
@@ -860,16 +841,11 @@ const UICommon = (() => {
   // ===== 전체 초기화 =====
   const init = (container = document) => {
     Input.init(container);
-    Checkbox.init();
-    RadioGroup.init();
-    Switch.init();
     Accordion.init(container);
     Tab.init(container);
     SelectBox.init();
     TextArea.init();
-    Pagination.init();
     Tooltip.init();
-    Button.init();
     Navigation.init();
   };
 
@@ -880,23 +856,14 @@ const UICommon = (() => {
 
     // 컴포넌트
     Input,
-    Checkbox,
-    RadioGroup,
-    Switch,
+    Accordion,
     Modal,
     SystemAlert,
     Toast,
-    Accordion,
     Tab,
     SelectBox,
     TextArea,
-    Pagination,
     Tooltip,
-    Breadcrumb,
-    Button,
-    Divider,
-    Grid,
-    Card,
     Loading,
     Navigation,
 

@@ -1,0 +1,26 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["eslint:recommended"],
+  "plugins": ["@html-eslint"],
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "parser": "@html-eslint/parser",
+      "rules": {
+        "indent": ["error", 2],
+        "quotes": ["error", "double"]
+      }
+    },
+    {
+      "files": ["*.js"],
+      "rules": {
+        "semi": ["error", "always"],
+        "quotes": ["error", "single"]
+      }
+    }
+  ]
+}
