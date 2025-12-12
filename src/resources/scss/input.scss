@@ -1,0 +1,95 @@
+.input-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+
+  .input-label {
+    width: 100%;
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+  }
+
+  .input-field-wrap {
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 0.1rem solid rgba(15, 23, 42, 0.08);
+    border-radius: var(--radius-xl);
+    background: rgba(248, 250, 255, 0.8);
+    box-shadow: inset 0 0 0 0.1rem rgba(255, 255, 255, 0.4);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease,
+      background 0.2s ease;
+
+    &:has(.input-field:focus) {
+      border-color: rgba(99, 102, 241, 0.5);
+      box-shadow: 0 0 0 0.4rem rgba(99, 102, 241, 0.15);
+      background: #fff;
+      outline: 0.2rem solid var(--color-primary);
+      outline-offset: 0.2rem;
+      transition: all 0.2s ease;
+    }
+    &.has-error {
+      border-color: rgba(239, 68, 68, 0.5);
+      box-shadow: 0 0 0 0.35rem rgba(239, 68, 68, 0.12);
+    }
+  }
+
+  .input-field {
+    flex: 1;
+    padding: var(--space-md) calc(var(--space-xl) + 2rem) var(--space-md)
+      var(--space-lg);
+    border: none;
+    font-size: var(--text-base);
+    color: var(--color-foreground);
+    background: transparent;
+
+    &::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.input-error {
+      color: var(--color-danger);
+    }
+
+    &:disabled {
+      color: var(--color-muted);
+    }
+  }
+
+  .input-clear-btn {
+    margin-right: var(--space-sm);
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 2.8rem;
+    height: 2.8rem;
+    margin-top: -1.4rem;
+    border: none;
+    border-radius: 50%;
+    color: var(--color-muted);
+    background: rgba(148, 163, 184, 0.15);
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--color-primary);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba(99, 102, 241, 0.2);
+    }
+  }
+
+  .input-error-message {
+    font-size: var(--text-sm);
+    color: var(--color-danger);
+    font-weight: var(--font-weight-medium);
+  }
+}

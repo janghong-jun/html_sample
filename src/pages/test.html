@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <!-- {include:meta} -->
+    <title>Home</title>
+  </head>
+  <body>
+    <!-- {include:skip} -->
+    <div class="wrap">
+      <!-- {include:header} -->
+      <!-- Main Content -->
+      <main id="main" class="main" tabindex="-1">
+        <h2 style="margin-bottom: 3rem">UI 컴포넌트 샘플</h2>
+
+        <!-- Input 샘플 -->
+        <section data-component="input">
+          <h3>Input 컴포넌트</h3>
+          <div class="input-item">
+            <label for="input-name" class="input-label">이름</label>
+            <div class="input-field-wrap">
+              <input
+                id="input-name"
+                type="text"
+                class="input-field"
+                placeholder="이름을 입력하세요"
+              />
+              <button class="input-clear-btn" type="button">×</button>
+            </div>
+          </div>
+
+          <div class="input-item" style="margin-top: 1.6rem">
+            <label for="input-email" class="input-label">이메일</label>
+            <div class="input-field-wrap">
+              <input
+                id="input-email"
+                type="email"
+                class="input-field"
+                placeholder="이메일을 입력하세요"
+              />
+              <button class="input-clear-btn" type="button">×</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Checkbox 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Checkbox 컴포넌트</h3>
+          <div class="krds-check-area">
+            <div class="krds-form-check-group chk-row">
+              <div class="krds-form-check">
+                <input
+                  type="checkbox"
+                  id="check1"
+                  class="krds-form-check-input"
+                />
+                <label for="check1" class="krds-form-check-label">옵션 1</label>
+              </div>
+              <div class="krds-form-check">
+                <input
+                  type="checkbox"
+                  id="check2"
+                  class="krds-form-check-input"
+                />
+                <label for="check2" class="krds-form-check-label">옵션 2</label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Radio 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Radio Group 컴포넌트</h3>
+          <div class="krds-check-area">
+            <div class="krds-form-check-group chk-row">
+              <div class="krds-form-check">
+                <input
+                  type="radio"
+                  id="radio1"
+                  name="option"
+                  value="opt1"
+                  class="krds-form-check-input"
+                />
+                <label for="radio1" class="krds-form-check-label"
+                  >선택지 1</label
+                >
+              </div>
+              <div class="krds-form-check">
+                <input
+                  type="radio"
+                  id="radio2"
+                  name="option"
+                  value="opt2"
+                  class="krds-form-check-input"
+                />
+                <label for="radio2" class="krds-form-check-label"
+                  >선택지 2</label
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Switch 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Switch 컴포넌트</h3>
+          <div class="krds-form-toggle-switch">
+            <input type="checkbox" id="switch1" class="switch-input" />
+            <span class="switch-toggle"></span>
+            <label for="switch1" class="switch-label">알림 받기</label>
+          </div>
+        </section>
+
+        <!-- Button 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Button 컴포넌트</h3>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+            <button class="krds-btn primary">Primary 버튼</button>
+            <button class="krds-btn secondary">Secondary 버튼</button>
+            <button class="krds-btn tertiary">Tertiary 버튼</button>
+            <button class="krds-btn primary large">Large 버튼</button>
+          </div>
+        </section>
+
+        <!-- Modal 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Modal 컴포넌트</h3>
+          <button
+            class="krds-btn primary"
+            onclick="UICommon.Modal.open('sample-modal')"
+          >
+            모달 열기
+          </button>
+
+          <div id="sample-modal" class="modal-backdrop">
+            <div class="modal-content medium">
+              <div class="modal-header">
+                <h2>모달 제목</h2>
+              </div>
+              <div class="modal-body">
+                <p>이것은 모달 컨텐츠입니다.</p>
+              </div>
+              <button
+                class="modal-close"
+                onclick="UICommon.Modal.close('sample-modal')"
+                aria-label="모달 닫기"
+              ></button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Alert 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>SystemAlert 컴포넌트</h3>
+          <button
+            class="krds-btn primary"
+            onclick="UICommon.SystemAlert.show('sample-alert')"
+          >
+            알럿 표시
+          </button>
+
+          <div id="sample-alert" class="alert-backdrop">
+            <div class="alert alert-info" tabindex="0">
+              <h2 class="alert-title">알림</h2>
+              <div class="alert-message">중요한 알림 메시지입니다.</div>
+              <div class="alert-buttons">
+                <button
+                  class="krds-btn primary"
+                  onclick="UICommon.SystemAlert.hide('sample-alert')"
+                >
+                  확인
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Toast 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Toast 컴포넌트</h3>
+          <button
+            class="krds-btn primary"
+            onclick="UICommon.Toast.show('작업이 완료되었습니다!', 3000)"
+          >
+            Toast 표시
+          </button>
+        </section>
+
+        <!-- Accordion 샘플 -->
+        <section style="margin-top: 2rem" data-component="accordion">
+          <h3>Accordion 컴포넌트</h3>
+          <div class="accordion">
+            <div class="accordion-item">
+              <strong class="accordion-header">
+                <button
+                  class="accordion-trigger"
+                  aria-expanded="false"
+                  aria-controls="accordion-content-1"
+                >
+                  첫 번째 항목
+                </button>
+              </strong>
+              <div
+                id="accordion-content-1"
+                class="accordion-content"
+                role="region"
+              >
+                <div class="accordion-inner">
+                  <p>첫 번째 아코디언 콘텐츠입니다.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <strong class="accordion-header">
+                <button
+                  class="accordion-trigger"
+                  aria-expanded="false"
+                  aria-controls="accordion-content-2"
+                >
+                  두 번째 항목
+                </button>
+              </strong>
+              <div
+                id="accordion-content-2"
+                class="accordion-content"
+                role="region"
+              >
+                <div class="accordion-inner">
+                  <p>두 번째 아코디언 콘텐츠입니다.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Tab 샘플 -->
+        <section style="margin-top: 2rem" data-component="tab">
+          <h3>Tab 컴포넌트</h3>
+          <div class="tab">
+            <div class="tab-list" role="tablist">
+              <button
+                class="btn-tab is-active"
+                role="tab"
+                aria-selected="true"
+                aria-controls="tab-content-1"
+              >
+                홈
+              </button>
+              <button
+                class="btn-tab"
+                role="tab"
+                aria-selected="false"
+                aria-controls="tab-content-2"
+              >
+                프로필
+              </button>
+              <button
+                class="btn-tab"
+                role="tab"
+                aria-selected="false"
+                aria-controls="tab-content-3"
+              >
+                설정
+              </button>
+            </div>
+            <div class="tab-content-wrap">
+              <section
+                id="tab-content-1"
+                class="tab-content is-active"
+                role="tabpanel"
+              >
+                <h4>홈 컨텐츠</h4>
+                <p>이것은 홈 탭의 내용입니다.</p>
+              </section>
+              <section id="tab-content-2" class="tab-content" role="tabpanel">
+                <h4>프로필 컨텐츠</h4>
+                <p>이것은 프로필 탭의 내용입니다.</p>
+              </section>
+              <section id="tab-content-3" class="tab-content" role="tabpanel">
+                <h4>설정 컨텐츠</h4>
+                <p>이것은 설정 탭의 내용입니다.</p>
+              </section>
+            </div>
+          </div>
+        </section>
+
+        <!-- SelectBox 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>SelectBox 컴포넌트</h3>
+          <div class="selectbox-wrapper">
+            <button class="selectbox-button placeholder" type="button">
+              선택하세요
+            </button>
+            <ul class="selectbox-options" style="display: none">
+              <li class="selectbox-option" data-value="opt1">옵션 1</li>
+              <li class="selectbox-option" data-value="opt2">옵션 2</li>
+              <li class="selectbox-option" data-value="opt3">옵션 3</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- TextArea 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>TextArea 컴포넌트</h3>
+          <div class="textarea-item">
+            <label for="textarea1" class="textarea-label">내용 입력</label>
+            <div class="textarea-wrap">
+              <textarea
+                id="textarea1"
+                class="krds-input"
+                placeholder="내용을 입력하세요"
+                data-max-length="200"
+              ></textarea>
+              <button class="textarea-clear-btn" type="button">×</button>
+              <div class="char-counter">0 / 200</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Pagination 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Pagination 컴포넌트</h3>
+          <nav class="krds-pagination">
+            <button class="page-navi prev">이전</button>
+            <ul class="page-links">
+              <li>
+                <button class="page-link active">1</button>
+              </li>
+              <li>
+                <button class="page-link">2</button>
+              </li>
+              <li>
+                <button class="page-link">3</button>
+              </li>
+            </ul>
+            <button class="page-navi next">다음</button>
+          </nav>
+        </section>
+
+        <!-- Tooltip 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Tooltip 컴포넌트</h3>
+          <div class="tooltip-container">
+            <button class="tooltip-trigger" type="button">정보 보기</button>
+            <div class="tooltip-layer" style="display: none">
+              이것은 툴팁입니다.
+            </div>
+          </div>
+        </section>
+
+        <!-- Breadcrumb 샘플 -->
+        <section style="margin-top: 2rem">
+          <h3>Breadcrumb 컴포넌트</h3>
+          <nav class="breadcrumb">
+            <ol class="breadcrumb-list">
+              <li class="breadcrumb-item home">
+                <a href="/" class="breadcrumb-link">홈</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="/category" class="breadcrumb-link">카테고리</a>
+              </li>
+              <li class="breadcrumb-item">
+                <span class="breadcrumb-link">현재 페이지</span>
+              </li>
+            </ol>
+          </nav>
+        </section>
+      </main>
+    </div>
+
+    <!-- {include:scripts} -->
+    <!-- {include:livereload} -->
+  </body>
+</html>

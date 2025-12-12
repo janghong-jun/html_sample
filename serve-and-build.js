@@ -19,6 +19,7 @@ const DIST_DIR = IS_DEV ? "dev" : "dist";
 const CONFIG = {
   INCLUDES: {
     meta: "./src/includes/meta.html",
+    skip: "./src/includes/skip.html",
     header: "./src/includes/header.html",
     footer: "./src/includes/footer.html",
     scripts: "./src/includes/scripts.html",
@@ -181,6 +182,7 @@ function copyJS() {
 function processHTMLPages(target) {
   const includes = {
     meta: readInclude(CONFIG.INCLUDES.meta),
+    skip: readInclude(CONFIG.INCLUDES.skip),
     header: readInclude(CONFIG.INCLUDES.header),
     footer: readInclude(CONFIG.INCLUDES.footer),
     scripts: readInclude(CONFIG.INCLUDES.scripts),

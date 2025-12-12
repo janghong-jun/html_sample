@@ -1,0 +1,80 @@
+.card {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  text-decoration: none;
+  border-radius: 1.2rem;
+  overflow: hidden;
+  border: 0.1rem solid #e5e5e5;
+  background: #fff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-0.2rem);
+    box-shadow: 0 0.4rem 1.6rem rgba(0, 0, 0, 0.1);
+  }
+
+  &__image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+
+  &__image {
+    object-fit: cover;
+  }
+
+  &__body {
+    padding: 1.6rem;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #111;
+    margin: 0 0 0.8rem;
+  }
+
+  &__description {
+    font-size: 1.4rem;
+    color: #555;
+    margin: 0;
+  }
+}
+.card-list {
+  width: 100%;
+  display: grid;
+
+  // JS에서 받아온 data 속성을 CSS 변수로 바인딩
+  &[data-columns] {
+    --columns: attr(data-columns number);
+  }
+
+  &[data-gap] {
+    --gap: attr(data-gap number);
+  }
+
+  // 기본값 (JS에서 columns=3, gap=24 전달됨)
+  grid-template-columns: repeat(var(--columns, 3), 1fr);
+  gap: calc((var(--gap) / 10) * 1rem);
+
+  &.card-list--responsive {
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__empty {
+    padding: var(--space-md);
+    color: var(--color-text-secondary);
+    text-align: center;
+    font-size: var(--text-base);
+  }
+}

@@ -1,34 +1,26 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  color: #333;
-  transition: all;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-.header {
-  background: #2c3e50;
-  color: white;
-  padding: 20px 0;
-}
-.header a {
-  color: white;
-  text-decoration: none;
-}
-
-.footer {
-  background: #2c3e50;
-  color: white;
-  padding: 20px 0;
-  margin-top: 40px;
-}
+@use "reset.scss";
+@use "layout.scss";
+@use "pages.scss";
+@use "gnb.scss";
+@use "button.scss";
+@use "tooltip.scss";
+@use "modal.scss";
+@use "accordion.scss";
+@use "systemAlert.scss";
+@use "toast.scss";
+@use "pagination.scss";
+@use "breadcrumb.scss";
+@use "tab.scss";
+@use "table.scss";
+@use "switch.scss";
+@use "inputSelect.scss";
+@use "swiper.scss";
+@use "input.scss";
+@use "textarea.scss";
+@use "storybook.scss";
+@use "selectbox.scss";
+@use "dateRangePicker.scss";
+@use "divider.scss";
+@use "card.scss";
+@use "boardList.scss";
+@use "grid.scss";

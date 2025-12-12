@@ -1,0 +1,101 @@
+.textarea-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  width: 100%;
+
+  .textarea-label {
+    font-size: var(--text-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+  }
+
+  .textarea-wrap {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-xl);
+    border: 0.1rem solid rgba(15, 23, 42, 0.08);
+    background: rgba(248, 250, 255, 0.85);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus-within {
+      border-color: rgba(79, 70, 229, 0.5);
+      box-shadow: 0 0 0 0.4rem rgba(99, 102, 241, 0.15);
+      background: #fff;
+      outline: 0.2rem solid var(--color-primary);
+      outline-offset: 0.2rem;
+      transition: all 0.2s ease;
+    }
+    &.has-error {
+      border-color: rgba(239, 68, 68, 0.5);
+      box-shadow: 0 0 0 0.35rem rgba(239, 68, 68, 0.12);
+    }
+  }
+
+  .krds-input {
+    width: 100%;
+    min-height: 8rem;
+    padding: var(--space-md) calc(var(--space-xl) + 2rem) var(--space-xl)
+      var(--space-xl);
+    border: none;
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-foreground);
+    background: transparent;
+    resize: none;
+
+    &::placeholder {
+      color: var(--color-text-tertiary);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &.textarea-error {
+      color: var(--color-danger);
+    }
+
+    &:disabled {
+      color: var(--color-muted);
+    }
+  }
+
+  .textarea-clear-btn {
+    position: absolute;
+    top: var(--space-sm);
+    right: var(--space-sm);
+    width: 2.8rem;
+    height: 2.8rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(148, 163, 184, 0.15);
+    font-size: var(--text-lg);
+    color: var(--color-muted);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+
+    &:hover {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--color-primary);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.3rem rgba(99, 102, 241, 0.2);
+    }
+  }
+
+  .char-counter {
+    padding: 0 var(--space-lg) var(--space-sm);
+    text-align: right;
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+  }
+
+  .textarea-error-message {
+    font-size: var(--text-sm);
+    color: var(--color-danger);
+    font-weight: var(--font-weight-medium);
+  }
+}

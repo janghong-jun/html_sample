@@ -1,0 +1,73 @@
+.krds-form-toggle-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+
+  &.disabled {
+    opacity: 0.5;
+  }
+}
+
+.switch-input {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+  width: 5.2rem;
+  height: 2.8rem;
+  margin: 0;
+  transform: translateY(-50%);
+  opacity: 0;
+  cursor: pointer;
+}
+
+.switch-toggle {
+  position: relative;
+  width: 5.2rem;
+  height: 2.8rem;
+  border-radius: 999rem;
+  background: rgba(148, 163, 184, 0.35);
+  transition: background 0.25s ease;
+
+  &::after {
+    position: absolute;
+    top: 0.2rem;
+    left: 0.2rem;
+    content: '';
+    width: 2.4rem;
+    height: 2.4rem;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0.6rem 1.2rem rgba(15, 23, 42, 0.15);
+    transition: transform 0.25s ease;
+  }
+}
+
+.switch-input:checked + .switch-toggle {
+  background: linear-gradient(120deg, #22c55e, #16a34a);
+}
+
+.switch-input:checked + .switch-toggle::after {
+  transform: translateX(2.4rem);
+}
+
+.switch-input:focus + .switch-toggle {
+  outline: 0.2rem solid var(--color-primary);
+  outline-offset: 0.2rem;
+  transition: all 0.2s ease;
+}
+
+.switch-input:disabled + .switch-toggle {
+  background: rgba(148, 163, 184, 0.3);
+}
+
+.switch-input:disabled + .switch-toggle::after {
+  background: rgba(226, 232, 240, 0.9);
+}
+
+.switch-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+}

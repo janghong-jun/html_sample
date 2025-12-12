@@ -1,0 +1,50 @@
+.board-list {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  &__item {
+    border-bottom: 0.1rem solid #ddd;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &-link {
+      display: block;
+      width: 100%;
+      padding: 1.2rem 1.6rem;
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      text-align: left;
+
+      &:focus {
+        outline: 0.2rem solid var(--color-primary);
+      }
+    }
+
+    &-title {
+      display: block;
+      font-size: 1.6rem;
+      margin: 0 0 0.4rem 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &-description {
+      font-size: 1.4rem;
+      margin: 0;
+      color: #666;
+    }
+  }
+  &__empty {
+    padding: var(--space-md);
+    color: var(--color-text-secondary);
+    text-align: center;
+    font-size: var(--text-base);
+  }
+}

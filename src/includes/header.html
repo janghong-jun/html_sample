@@ -1,5 +1,78 @@
+<!-- Header & Navigation -->
 <header class="header">
-  <div class="container">
-    <h1><a href="/pages/index.html">My Website</a></h1>
-  </div>
+  <h1 class="logo">
+    <a href="/">하이코칭</a>
+  </h1>
+
+  <nav class="gnb" id="gnb">
+    <div class="gnb-inner">
+      <!-- 모바일 메뉴 버튼 -->
+      <button
+        class="mobile-menu-btn"
+        id="mobile-menu-toggle"
+        aria-label="메뉴 열기"
+        aria-expanded="false"
+        aria-controls="menu-container"
+      >
+        <span class="menu-icon">☰</span>
+      </button>
+
+      <!-- 메뉴 컨테이너 -->
+      <div class="menu-container" id="menu-container">
+        <ul class="menu-list level-0" role="menubar">
+          <li class="menu-item">
+            <a href="#home" class="menu-link">홈</a>
+          </li>
+          <li class="menu-item has-children">
+            <button
+              class="menu-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              data-submenu="about-menu"
+            >
+              About
+            </button>
+            <ul class="sub-menu" id="about-menu" role="menu" hidden>
+              <li role="none">
+                <a href="#team" class="sub-menu-link">Our Team</a>
+              </li>
+              <li role="none">
+                <a href="#company" class="sub-menu-link">Company</a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item has-children">
+            <button
+              class="menu-toggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              data-submenu="services-menu"
+            >
+              Services
+            </button>
+            <ul class="sub-menu" id="services-menu" role="menu" hidden>
+              <li role="none">
+                <a href="#web" class="sub-menu-link">Web Development</a>
+              </li>
+              <li role="none">
+                <a href="#app" class="sub-menu-link">App Development</a>
+              </li>
+              <li role="none">
+                <a href="#design" class="sub-menu-link">UX Design</a>
+              </li>
+            </ul>
+          </li>
+          <li class="menu-item">
+            <a href="#contact" class="menu-link">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 액션 버튼 -->
+      <div class="gnb-actions">
+        <button class="gnb-btn gnb-login">로그인</button>
+        <button class="gnb-btn gnb-signup">회원가입</button>
+      </div>
+    </div>
+  </nav>
 </header>

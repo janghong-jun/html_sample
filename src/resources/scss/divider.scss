@@ -1,0 +1,35 @@
+// Divider styles
+.divider {
+  border: none;
+  width: 100%;
+}
+
+.divider--solid {
+  border-top-style: solid;
+}
+.divider--dashed {
+  border-top-style: dashed;
+}
+.divider--dotted {
+  border-top-style: dotted;
+}
+
+.divider--color-gray {
+  border-top-color: #e0e0e0;
+}
+.divider--color-dark {
+  border-top-color: #222;
+}
+.divider--color-primary {
+  border-top-color: #007bff;
+}
+
+.divider--thickness-thin {
+  border-top-width: 0.1rem;
+}
+.divider--thickness-medium {
+  border-top-width: 0.2rem;
+}
+.divider--thickness-thick {
+  border-top-width: 0.4rem;
+}

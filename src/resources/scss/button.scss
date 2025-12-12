@@ -1,0 +1,196 @@
+.krds-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  border: 0.1rem solid transparent;
+  border-radius: var(--radius-lg);
+  font-size: 1.4rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-foreground);
+  background: linear-gradient(120deg, #f9fafb, #ecf2ff);
+  box-shadow: 0 0.2rem 0.4rem rgba(15, 23, 42, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease,
+    color 0.2s ease;
+  cursor: pointer;
+
+  // 빛나는 효과가 천천히 도는 듯한 after (기본)
+  &::after {
+    position: absolute;
+    inset: -16%;
+    z-index: 1;
+    content: '';
+    border-radius: inherit;
+    opacity: 0; // 기본은 안보이게
+    pointer-events: none;
+    animation: btn-glow-spin 2s linear infinite;
+    filter: blur(0.7rem) brightness(1.09);
+    mix-blend-mode: lighten;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &:hover:not(:disabled) {
+    transform: translateY(-0.15rem);
+    box-shadow: var(--shadow-md);
+
+    &:hover::after {
+      opacity: 1;
+      filter: blur(1rem) brightness(1.17);
+    }
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.4rem rgba(59, 130, 246, 0.18), var(--shadow-md);
+    &:hover::after {
+      opacity: 1;
+      filter: blur(1.2rem) brightness(1.18);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+    &::after {
+      display: none;
+    }
+  }
+
+  & > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  // --- 컬러 버전 마다 빛나는 conic-gradient 색상 변경 ---
+  &.primary {
+    background: #4f46e5;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.08);
+
+    &:hover::after {
+      background: conic-gradient(
+        from 0deg,
+        rgba(99, 102, 241, 0.35) 0deg,
+        rgba(236, 72, 153, 0.3) 30deg,
+        rgba(251, 191, 36, 0.3) 60deg,
+        rgba(16, 185, 129, 0.32) 90deg,
+        rgba(59, 130, 246, 0.35) 120deg,
+        rgba(236, 72, 153, 0.2) 200deg,
+        rgba(99, 102, 241, 0.4) 320deg,
+        rgba(99, 102, 241, 0.35) 360deg
+      );
+      opacity: 1;
+      filter: blur(1rem) brightness(1.16);
+    }
+  }
+
+  &.secondary {
+    background: #ffffff;
+    border-color: rgba(59, 130, 246, 0.22); // 테두리도 조금 더 눈에 띄게
+    color: var(--color-foreground);
+
+    &:hover {
+      border-color: rgba(99, 102, 241, 0.32); // hover시 테두리 강조
+    }
+
+    &:hover::after {
+      background: conic-gradient(
+        from 0deg,
+        rgba(99, 102, 241, 0.85) 0deg,
+        rgba(59, 130, 246, 0.7) 40deg,
+        rgba(16, 185, 129, 0.75) 110deg,
+        rgba(251, 191, 36, 0.85) 180deg,
+        rgba(244, 63, 94, 0.75) 260deg,
+        rgba(236, 72, 153, 0.74) 320deg,
+        rgba(99, 102, 241, 0.85) 360deg
+      );
+      opacity: 1;
+      filter: blur(1.8rem) brightness(1.32) saturate(1.8) contrast(1.35);
+    }
+  }
+
+  &.tertiary {
+    background: rgba(244, 63, 94, 0.08);
+    color: #be123c;
+    border-color: rgba(244, 63, 94, 0.2);
+
+    &:hover::after {
+      background: conic-gradient(
+        from 0deg,
+        rgba(244, 63, 94, 0.22) 0deg,
+        rgba(251, 191, 36, 0.32) 32deg,
+        rgba(239, 68, 68, 0.15) 90deg,
+        rgba(253, 164, 175, 0.19) 180deg,
+        rgba(244, 63, 94, 0.22) 320deg,
+        rgba(244, 63, 94, 0.22) 360deg
+      );
+      opacity: 1;
+      filter: blur(1rem) brightness(1.15);
+    }
+  }
+
+  // --- 사이즈 ---
+  &.x-small {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 1.2rem;
+  }
+
+  &.small {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 1.3rem;
+  }
+
+  &.medium {
+    padding: var(--space-md) var(--space-lg);
+  }
+
+  &.large {
+    padding: var(--space-lg) var(--space-xl);
+    font-size: 1.6rem;
+  }
+
+  &.x-large {
+    padding: var(--space-xl) var(--space-2xl);
+    font-size: 1.8rem;
+  }
+
+  &.text {
+    padding: 0 !important;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+
+    &:after {
+      display: none;
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+    }
+
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+@keyframes btn-glow-spin {
+  0% {
+    transform: rotate(0deg) scale(1.02);
+  }
+  100% {
+    transform: rotate(360deg) scale(1.02);
+  }
+}
+
+@media (max-width: 768px) {
+  .button {
+    width: 100%;
+  }
+}

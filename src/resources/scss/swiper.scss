@@ -1,0 +1,55 @@
+.swiper-container {
+  position: relative;
+  overflow: hidden;
+  .swiper {
+    .swiper-wrapper {
+      display: flex;
+    }
+
+    .swiper-slide {
+      flex-shrink: 0;
+    }
+  }
+
+  .swiper-pagination-bullets {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+
+    .swiper-pagination-bullet {
+      width: 0.8rem;
+      height: 0.8rem;
+      margin: 0 !important;
+      background: #fff;
+      border-radius: 0.4rem;
+      opacity: 1;
+      border: 0.1rem solid #007bff;
+
+      &.swiper-pagination-bullet-active {
+        width: 2.4rem;
+        background: #007bff;
+      }
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+
+    svg {
+      fill: #fff;
+    }
+  }
+
+  .swiper-button-prev {
+    left: 0.5rem;
+  }
+  .swiper-button-next {
+    right: 0.5rem;
+  }
+}

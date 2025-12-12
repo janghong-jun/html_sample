@@ -1,0 +1,78 @@
+.table {
+  width: 100%;
+  overflow-x: auto;
+  background: var(--color-surface);
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-base);
+    line-height: var(--line-height-normal);
+    background: var(--color-surface);
+    overflow: hidden;
+
+    // 공통 테이블 스타일
+    th,
+    td {
+      padding: var(--space-lg) var(--space-xl);
+      text-align: center; // 기본 가운데 정렬
+      border-bottom: 0.1rem solid var(--color-border);
+      transition: all 0.2s ease;
+    }
+
+    th {
+      font-weight: var(--font-weight-bold);
+      color: var(--color-foreground);
+      background: #f8fafc;
+      border-bottom: 0.1rem solid var(--color-border);
+      text-transform: uppercase;
+      font-size: var(--text-sm);
+      letter-spacing: 0.05em;
+      position: relative;
+    }
+
+    tbody td {
+      background: #fff;
+    }
+
+    // 텍스트 정렬 클래스
+    .align-left {
+      text-align: left !important;
+    }
+
+    .align-center {
+      text-align: center !important;
+    }
+
+    .align-right {
+      text-align: right !important;
+    }
+
+    // 반응형 디자인
+    @media (max-width: 768px) {
+      & {
+        font-size: var(--text-sm);
+      }
+
+      th,
+      td {
+        padding: var(--space-sm) var(--space-md);
+        min-width: 8rem;
+      }
+    }
+
+    // 다크모드 지원 (필요시)
+    @media (prefers-color-scheme: dark) {
+      background: var(--color-surface-dark);
+
+      th {
+        background: var(--color-bg-dark);
+        color: var(--color-foreground-dark);
+      }
+
+      tbody td {
+        background: var(--color-surface-dark);
+      }
+    }
+  }
+}

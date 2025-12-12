@@ -1,0 +1,261 @@
+/* ===================================================
+   FORM CONTROL STYLES (CHECKBOX & RADIO - KRDS 표준 준수)
+   =================================================== */
+
+/* 폼 컨트롤 그룹 영역 */
+.krds-check-area {
+  width: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  .chk-column {
+    display: grid;
+    gap: var(--space-md);
+
+    .krds-form-check {
+      width: max-content;
+    }
+  }
+}
+
+/* 그룹 레이블 (legend) */
+.krds-check-legend {
+  width: 100%;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-sm);
+  padding: 0;
+}
+
+/* 폼 컨트롤 그룹 컨테이너 */
+.krds-form-check-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+
+  &.chk-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-lg);
+  }
+}
+
+/* 폼 컨트롤 컨테이너 */
+.krds-form-check {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm);
+  border-radius: var(--radius-lg);
+  transition: background-color 0.2s ease;
+
+  &:hover:has(input[type='checkbox']:not(:disabled)),
+  &:hover:has(input[type='radio']:not(:disabled)) {
+    background-color: rgba(99, 102, 241, 0.08);
+  }
+}
+
+/* ===================================================
+   CHECKBOX STYLES
+   =================================================== */
+
+/* 체크박스 입력 필드 */
+.krds-form-check-input[type='checkbox'] {
+  position: relative;
+  flex-shrink: 0;
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  box-sizing: border-box;
+  margin: 0;
+  border: 0.15rem solid rgba(99, 102, 241, 0.3);
+  border-radius: 0.4rem;
+  background: #fff;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  /* 체크 표시 */
+  &::after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 0.6rem;
+    border-left: 0.25rem solid #fff;
+    border-bottom: 0.25rem solid #fff;
+    transform: translate(-50%, -50%) scale(0) rotate(-45deg);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* 체크 상태 */
+  &:checked {
+    border-color: transparent;
+    background: linear-gradient(120deg, #4f46e5, #7c3aed);
+
+    &::after {
+      transform: translate(-50%, -50%) scale(1) rotate(-45deg);
+      opacity: 1;
+    }
+  }
+
+  /* 포커스 상태 */
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.3rem rgba(99, 102, 241, 0.25);
+  }
+
+  /* 비활성화 상태 */
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+
+    &:checked {
+      background: rgba(148, 163, 184, 0.4);
+    }
+  }
+
+  /* 명도 대비 3:1 이상 확보 (KRDS 접근성 기준) */
+  @media (prefers-contrast: more) {
+    border-color: rgba(59, 130, 246, 0.5);
+  }
+}
+
+/* ===================================================
+   RADIO BUTTON STYLES
+   =================================================== */
+
+/* 라디오 버튼 입력 필드 */
+.krds-form-check-input[type='radio'] {
+  position: relative;
+  flex-shrink: 0;
+  appearance: none;
+  width: 2rem;
+  height: 2rem;
+  box-sizing: border-box;
+  margin: 0;
+  border: 0.15rem solid rgba(99, 102, 241, 0.3);
+  border-radius: 50%;
+  background: #fff;
+  transition: all 0.2s ease;
+  cursor: pointer;
+
+  /* 선택된 상태 인디케이터 */
+  &::after {
+    position: absolute;
+    inset: 0.4rem;
+    content: '';
+    border-radius: 50%;
+    background: linear-gradient(120deg, #4f46e5, #7c3aed);
+    transform: scale(0);
+    transition: transform 0.2s ease;
+    pointer-events: none;
+  }
+
+  /* 라디오 선택 상태 */
+  &:checked {
+    border-color: rgba(99, 102, 241, 0.9);
+
+    &::after {
+      transform: scale(1);
+    }
+  }
+
+  /* 포커스 상태 */
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.3rem rgba(99, 102, 241, 0.25);
+  }
+
+  /* 비활성화 상태 */
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+
+    &:checked {
+      border-color: rgba(148, 163, 184, 0.5);
+
+      &::after {
+        background: rgba(148, 163, 184, 0.5);
+      }
+    }
+  }
+
+  /* 명도 대비 3:1 이상 확보 (KRDS 접근성 기준) */
+  @media (prefers-contrast: more) {
+    border-color: rgba(59, 130, 246, 0.5);
+  }
+}
+
+/* ===================================================
+   SHARED LABEL & FOCUS STYLES
+   =================================================== */
+
+/* 폼 컨트롤 레이블 */
+.krds-form-check-label {
+  font-size: var(--text-base);
+  color: var(--color-foreground);
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+
+  &.disabled {
+    color: var(--color-text-tertiary);
+    cursor: default;
+  }
+}
+
+/* 포커스 시 레이블 언더라인 */
+.krds-form-check-input[type='checkbox']:focus-visible,
+.krds-form-check-input[type='radio']:focus-visible {
+  ~ .krds-form-check-label {
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+  }
+}
+
+/* 라디오 버튼 수평 배치 */
+.krds-form-check-group.chk-row {
+  .krds-form-check {
+    // padding: var(--space-md) var(--space-lg);
+    gap: var(--space-md);
+  }
+}
+
+// /* 모바일 대응성 개선 */
+// @media (max-width: 768px) {
+//   .krds-form-check {
+//     padding: var(--space-md);
+//     gap: var(--space-md);
+
+//     &:hover {
+//       background-color: transparent;
+//     }
+
+//     &:active:has(input[type='checkbox']:not(:disabled)),
+//     &:active:has(input[type='radio']:not(:disabled)) {
+//       background-color: rgba(99, 102, 241, 0.12);
+//     }
+//   }
+
+//   .krds-form-check-input[type='checkbox'],
+//   .krds-form-check-input[type='radio'] {
+//     width: 2.4rem;
+//     height: 2.4rem;
+//   }
+
+//   .krds-form-check-label {
+//     font-size: var(--text-lg);
+//   }
+
+//   /* 모바일에서는 수직 배치 권장 */
+//   .krds-form-check-group.chk-row {
+//     flex-direction: column;
+//     gap: var(--space-md);
+//   }
+// }
